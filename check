@@ -1,0 +1,164 @@
+#!/usr/bin/bash
+
+# Free Security Framework v0.1.9-codefish
+
+# Copyright (C) 2015-2016 Free Security Team
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+#MODULES DIRECTORIES
+#[/usr/lib/python2.7]
+#[/usr/local/lib/python2.7/dist-packages/]
+#[/usr/share/GeoIP/]
+#[/usr/local/lib/python2.7/dist-packages/colored/]
+#[/usr/local/lib/python2.7/dist-packages/nmap/]
+#[/usr/lib/python2.7/dist-packages/mechanize/]
+#[/usr/lib/python2.7/dist-packages/scapy/]
+#[/usr/share/apache2/]
+#[/usr/lib/python2.7/dist-packages/bluetooth/]
+
+MAIN_DEBUG=0
+
+VERSION=0.1.9
+CODENAME=codefish
+MODULES=18
+
+#stand alone color
+rojo="\033[1;31m"
+verde="\033[1;32m"
+azul="\033[1;34m"
+rescolor="\e[0m"
+grey="\033[1;40m"
+
+if [ $MAIN_DEBUG = 1 ]; then
+	## set to /dev/stdout when in developer/debugger mode
+	export main_output_device=/dev/stdout
+	HOLD="-hold"
+else
+	## set to /dev/null when in production mode
+	export main_output_device=/dev/null
+	HOLD=""
+fi
+
+function conditional_clear() {
+	if [[ "$main_output_device" != "/dev/stdout" ]]; then clear; fi
+}
+
+#root privileges
+if ! [ $(id -u) = "0" ] 2>/dev/null; then
+	echo -e "\e[1;31m[-] Permission denied. No superuser privileges. "$rescolor""
+	exit
+fi
+
+function checkdependencies {
+	echo " "
+	echo -e "\e[1;32mChecking Installed Dependencies. Please wait."$rescolor""
+	echo " "
+	sleep 1
+	echo -ne "Python 2.7		> "
+	if ! [ -f /usr/lib/python2.7/compiler/ast.py ]; then	#location of colred module
+		echo -e "\e[1;31mUninstalled.  "$rescolor""
+		decide=1
+#colored/back.py
+
+	else
+		echo -e "\e[1;32mInstalled.""$rescolor"
+	fi
+	sleep 1
+	echo -ne "PyGeoip Python Module	> "
+	if ! [ -f /usr/local/lib/python2.7/dist-packages/pygeoip-0.3.2-py2.7.egg ]; then	#location of colred module
+		echo -e "\e[1;31mUninstalled.  "$rescolor""
+		decide=1
+
+	else
+		echo -e "\e[1;32mInstalled.""$rescolor"
+	fi
+	sleep 1
+	echo -ne "PyGeoip Database	> "
+	if ! [ -f /usr/share/GeoIP/GeoIP.dat ]; then	#location of colred module
+		echo -e "\e[1;31mUninstalled.  "$rescolor""
+		decide=1
+#colored/back.py
+
+	else
+		echo -e "\e[1;32mInstalled.""$rescolor"
+	fi
+	sleep 1
+	echo -ne "Colored Python Module	> "
+	if ! [ -f /usr/local/lib/python2.7/dist-packages/colored/back.py ]; then	#location of colred module
+		echo -e "\e[1;31mUninstalled.  "$rescolor""
+		decide=1
+#colored/back.py
+
+	else
+		echo -e "\e[1;32mInstalled.""$rescolor"
+	fi
+	sleep 1
+
+	echo -ne "NMAP Python Module	> "
+	if ! [ -f /usr/local/lib/python2.7/dist-packages/nmap/nmap.pyc ]; then
+		echo -e "\e[1;31mUninstalled."$rescolor""
+		decide=1
+	else
+		echo -e "\e[1;32mInstalled.""$rescolor"
+	fi
+	sleep 1
+	echo -ne "Mechanize Python Module	> "
+	if ! [ -f /usr/lib/python2.7/dist-packages/mechanize/_beautifulsoup.py ]; then	#location of colred module
+		echo -e "\e[1;31mUninstalled."$rescolor""
+		decide=1
+	else
+		echo -e "\e[1;32mInstalled.""$rescolor"
+	fi
+	sleep 1
+
+	echo -ne "Scapy Python Module	> "
+	if ! [ -f /usr/lib/python2.7/dist-packages/scapy/all.py ]; then	#location of colred module
+		echo -e "\e[1;31mUninstalled."$rescolor""
+		decide=1
+	else
+		echo -e "\e[1;32mInstalled.""$rescolor"
+	fi
+	sleep 1
+	echo -ne "Apache Web Server	> "
+	if ! [ -f /etc/apache2/apache2.conf ]; then	#location of colred module
+		echo -e "\e[1;31mUninstalled."$rescolor""
+		decide=1
+	else
+		echo -e "\e[1;32mInstalled.""$rescolor"
+	fi
+
+	sleep 1
+		echo -ne "Bluetooth Modules	> "
+	if ! [ -f /usr/lib/python2.7/dist-packages/bluetooth/bluez.py ]; then	#location of colred module
+		echo -e "\e[1;31mUninstalled."$rescolor""
+		decide=1
+	else
+		echo -e "\e[1;32mInstalled.""$rescolor"
+	fi
+
+	sleep 1
+	echo ""
+}
+
+echo ""
+echo -e  "\e[1;40mFree Security Framework v$VERSION-$CODENAME""$rescolor"
+echo "For module visit https://github.com/tuxdeflux/fsteam/"
+echo "For module visit https://github.com/isaacdarcilla/fsteam/"
+
+checkdependencies
+
+if [ $MAIN_DEBUG != 1 ]; then
+	sudo python fsecurity.py
+fi

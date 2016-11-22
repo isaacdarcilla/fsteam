@@ -1,0 +1,118 @@
+#!/usr/bin/bash
+
+# Free Security Framework v0.1.9-codefish
+
+# Copyright (C) 2015-2016 Free Security Team
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+#--------------------------------------------
+#   Simple Bash Installer And Uninstaller
+#--------------------------------------------
+
+VERSION=0.1.9
+CODENAME=codefish
+MODULES=18
+
+export COLOR_RED="\033[1;31m"
+export COLOR_GREEN="\033[1;32m"
+export COLOR_BLUE="\033[1;34m"
+export COLOR_GREY="\033[1;40m"
+export COLOR_YELLOW="\033[1;33m"
+export COLOR_RESET="\e[0m"
+MAIN_DEBUG=0
+
+
+if ! [ $(id -u) = "0" ] 2>/dev/null; then
+	echo -e "$COLOR_RED[-] Permission denied. No superuser privileges. "$COLOR_RESET""
+	exit
+fi
+
+if [ "$#" -eq "0" ]
+then
+    echo -e "$COLOR_BLUE\n Free Security Framework $VERSION-$CODENAME""$COLOR_RESET"
+	echo -e "$COLOR_CYAN Simple Bash Script Framework Installer \n""$COLOR_RESET"
+	echo -e "   $COLOR_RED Options\t Description""$COLOR_RESET"
+	echo -e "    install\t$COLOR_WHITE install the framework""$COLOR_RESET"
+	echo -e "    uninstall\t$COLOR_WHITE uninstall the framework\n""$COLOR_RESET"
+
+
+	echo -e "$COLOR_GREY Copyleft 2015-2016 Free Security Team \n""$COLOR_RESET"
+    exit 2
+fi
+
+FUNCTION_INSTALL ()
+ {
+	echo ""
+	echo -e  "$COLOR_GREY Free Security Framework v$VERSION-$CODENAME""$COLOR_RESET"
+	echo " Visit official repository for more info"
+	echo -e -n "$COLOR_YELLOW\n Creating file directories. Please wait.\n""$COLOR_RESET"
+	sleep 1
+		mkdir /usr/share/fsteam
+		mkdir /usr/share/fsteam/Main
+		mkdir /usr/share/fsteam/Data
+		mkdir /usr/share/fsteam/Logs
+	echo -e "$COLOR_YELLOW Moving files in directory. Please wait.""$COLOR_RESET"
+		cp fsteam /usr/bin
+		sleep 1
+		cp fsecurity.py /usr/share/fsteam
+		sleep 1
+		cp fsecurity.pyc /usr/share/fsteam
+		sleep 1
+		cp check /usr/share/fsteam
+		sleep 1
+		cp setup /usr/share/fsteam
+		sleep 1
+		cp Databases/GeoIP.dat /usr/share/fsteam/Data
+		sleep 1
+		cp --recursive README /usr/share/fsteam
+		sleep 1
+		cp README/LICENSE.GPL2 /usr/share/fsteam
+		sleep 1
+		cp --recursive Dependencies /usr/share/fsteam
+		sleep 1
+
+		cp --recursive Main /usr/share/fsteam
+
+		chmod --recursive 777 /usr/share/fsteam
+	echo -e "$COLOR_YELLOW Framework installed. Testing first run.\n""$COLOR_RESET"
+		sleep 1
+
+		fsteam start
+ }
+
+FUNCTION_UNINSTALL ()
+ {
+
+	echo ""
+	echo -e "$COLOR_GREY Free Security Framework v$VERSION-$CODENAME""$COLOR_RESET"
+	echo " Visit official repository for more info"
+	echo ""
+	echo -e "$COLOR_RED Removing all framework files. Please wait.""$COLOR_RESET"
+	rm --recursive /usr/share/fsteam
+	rm /usr/bin/fsteam
+	sleep 2
+echo -e "$COLOR_RED Framework files removed. Done uninstalling.\n""$COLOR_RESET"
+ }
+
+if test $# = 1; then
+	case "$1" in
+		install | installs )
+			FUNCTION_INSTALL; exit 0 ;;
+		uninstall )
+			FUNCTION_UNINSTALL; exit 0 ;;
+		help | hel )
+			FUNCTION_HELP; exit 0 ;;
+	esac
+fi

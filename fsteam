@@ -1,0 +1,120 @@
+#! /bin/sh
+# Free Security Framework v0.1.9-codefish
+
+# Copyright (C) 2015-2016 Free Security Team
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+export BASH=/usr/bin/bash
+
+VERSION=0.1.9
+CODENAME=codefish
+MODULES=18
+WORKING_DIR=/usr/share/fsteam
+
+export COLOR_RED="\033[1;31m"
+export COLOR_GREEN="\033[1;32m"
+export COLOR_BLUE="\033[1;34m"
+export COLOR_GREY="\033[1;40m"
+export COLOR_CYAN="\033[1;36m"
+export COLOR_WHITE="\033[1;39m"
+export COLOR_RESET="\033[1;00m"
+MAIN_DEBUG=0
+
+if [ "$#" -eq "0" ]
+then
+    echo  "$COLOR_BLUE\n Free Security Framework $VERSION-$CODENAME""$COLOR_RESET"
+	echo  "$COLOR_CYAN Simple Network Analysis Framework [$MODULES]\n""$COLOR_RESET"
+	echo  "   $COLOR_RED Options\t Description""$COLOR_RESET"
+	echo  "    help\t$COLOR_WHITE show this help""$COLOR_RESET"
+	echo  "    about\t$COLOR_WHITE about this framework""$COLOR_RESET"
+	echo  "    version\t$COLOR_WHITE show version\n""$COLOR_RESET"
+
+	echo  "    start\t$COLOR_WHITE start the framework""$COLOR_RESET"
+	echo  "    modules\t$COLOR_WHITE show the modules\n""$COLOR_RESET"
+
+	echo  "$COLOR_GREY Copyleft 2015-2016 Free Security Team \n""$COLOR_RESET"
+    exit 2
+fi
+
+FUNCTION_ABOUT ()
+	{	echo ""
+		echo  "    $COLOR_GREY About Free Security Framework $VERSION-$CODENAME ""$COLOR_RESET"
+		echo "
+    Licensed under the GNU General Public License Version 2
+
+    Free Security Framework is free software;   you can redistribute it
+    and/or modify it under the terms of the GNU General Public License
+    as published by the Free Software Foundation; either version 2
+    of the License, or any later version.
+
+    Free Security Framework is distributed in the hope that it will be
+    useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+    of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    General Public License for more details."
+		echo ""
+    }
+
+FUNCTION_VERSION ()
+	{
+		echo  "$COLOR_GREY Free Security Framework $VERSION-$CODENAME ""$COLOR_RESET"
+	}
+
+FUNCTION_START ()
+	{
+		cd /usr/share/fsteam
+		sudo python fsecurity.py "$@"
+	}
+
+FUNCTION_MODULES ()
+	{
+	echo  "\n\t$COLOR_RED Available Modules	Descriptions""$COLOR_RESET"
+		cat $WORKING_DIR/Main/txt/modules.txt
+	echo  "\t<For modules visit http://github.com/isaacdarcilla/fsteam>"
+	echo ""
+	}
+
+FUNCTION_HELP ()
+	{
+    echo  "$COLOR_BLUE\n Free Security Framework $VERSION-$CODENAME""$COLOR_RESET"
+	echo  "$COLOR_CYAN Simple Network Analysis Framework [$MODULES]\n""$COLOR_RESET"
+	echo  "   $COLOR_RED Options\tDescription""$COLOR_RESET"
+	echo  "    help\t$COLOR_WHITE show this help""$COLOR_RESET"
+	echo  "    about\t$COLOR_WHITE about this framework""$COLOR_RESET"
+	echo  "    version\t$COLOR_WHITE show version\n""$COLOR_RESET"
+
+	echo  "    start\t$COLOR_WHITE start the framework""$COLOR_RESET"
+	echo  "    modules\t$COLOR_WHITE show the modules\n""$COLOR_RESET"
+
+	echo  "$COLOR_GREY Copyleft 2015-2016 Free Security Team \n""$COLOR_RESET"
+	}
+
+
+if test $# = 1; then
+	case "$1" in
+		about | abou | abo | ab )
+			FUNCTION_ABOUT; exit 0 ;;
+		version | versio | versi )
+			FUNCTION_VERSION; exit 0 ;;
+		start | star )
+			FUNCTION_START; exit 0 ;;
+		modules | module )
+			FUNCTION_MODULES; exit 0 ;;
+		help | hel )
+			FUNCTION_HELP; exit 0 ;;
+	esac
+fi
+
+
+
