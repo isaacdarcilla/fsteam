@@ -1,0 +1,6 @@
+#!/usr/bin/python
+
+import os
+
+def modules():
+	print "\n\t\033[1;31mAvailable Modules\tDescription\033[1;m\n\n\t\033[1;31mNetwork Modules\033[1;m\n\t net/cookiehijack\tSteal cookies stored during browsing session.\n\t net/ftpscanner\t\tFTP Server port scanner.\n\t net/networksniffer\tWireless traffic sniffing tool.\n\t net/packetsniffer\tPrint IP address and TTL of incoming packets.\n\t net/probesniffer\tListening for 802.11 probe requests.\n\t net/portscanner\tIntegrated port scanner with Nmap.\n\n\t\033[1;31mWireless Modules\033[1;m\n\t wifi/decloaker\t\tDe-cloaking hidden 802.11 networks.\n\t wifi/ccsniffer\t\tCredit Card credential sniffer.\n\n\t\033[1;31mServer Modules\033[1;m\n\t server/ftpserver\tExploitaion module for FTP web pages.\n\n\t\033[1;31mFile Modules\033[1;m\n\t file/filecracker\tZip file password cracker.\n\n\t\033[1;31mWeb Modules\033[1;m\n\t web/webbrowser\t\tAnonymously browse the web.\n\t web/domain\t\tAnalyze packet capture file.\n\t web/fastflux\t\tPrint stored IP in capture file.\n\t web/iplocate\t\tGeolocate target host.\n\n\t\033[1;31mBluetooth Modules\033[1;m\n\t bluetooth/macbtid\tIdentifies Iphone MAC Address.\n\t bluetooth/btrfcomm\tScan RFCOMM protocols.\n\t bluetooth/btsdp\tBluetooth Service Discovery Tool.\n\t bluetooth/btsniffer\tScan nearby Bluetooth signals.\n"
